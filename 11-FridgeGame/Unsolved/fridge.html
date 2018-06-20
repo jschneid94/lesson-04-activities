@@ -77,7 +77,9 @@
 
         letterBtn.textContent = letters[i];
 
-        letterBtn += 
+        letterBtn.append(letters[i]); 
+
+
       }
       // Inside the loop...
 
@@ -97,7 +99,14 @@
       // =================================================================================
 
       // 7. Create an "on-click" event attached to the ".letter-button" class.
+  $(".letter-button").on("click", function(){
 
+    var fridgeMagnet = $("<div>"); 
+  fridgeMagnet.addClass("letter", "fridge-color"); 
+  fridgeMagnet.text($(this).attr("data-letter")); 
+  fridgeMagnet.append($("#display")); 
+
+  });
       // Inside the on-click event...
 
       // 8. Create a variable called "fridgeMagnet" and set the variable equal to a new div.
