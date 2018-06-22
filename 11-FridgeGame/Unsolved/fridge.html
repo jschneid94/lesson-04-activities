@@ -73,14 +73,12 @@
 
         letterBtn.addClass("letter-button letter letter-button-color");
 
-        letterBtn.attr("data-letter", "letters[i]")
+        letterBtn.attr("data-letter", letters[i]); 
 
-        letterBtn.textContent = letters[i];
+        letterBtn.text(letters[i]);
 
-        letterBtn.append(letters[i]); 
-
-
-      }
+        letterBtn.append(letterBtn); 
+      } 
       // Inside the loop...
 
       // 2. Create a variable named "letterBtn" equal to $("<button>");
