@@ -72,57 +72,111 @@
 
 <script type="text/javascript">
 
-$(document).ready(function() {
+  $(document).ready(function() {
 
-// Your code here...
+    // Create global variables
+    var firstNumber = 0;
+    var secondNumber = 0;
+    var operator = "";
+    var result = 0;
+    var isCalculated = false;
+    var operatorChosen = false;
 
+    // Function to reset the calculator
+    function initializeCalculator() {
+      // Resets all the values
+      firstNumber = 0;
+      secondNumber = 0;
+      operator = "";
+      isCalculated = false;
+      operatorChosen = false;
 
-// Use a function to initialize our calculator
-//This way when the user hits clear, we can guarantee a reset of the app.
-function intializeCalculator () {
-  firstNumber = "";
-  secondNumber = "";
-  operator = "";
-  isOperatorChosen = false;
-  isCalculated = false;
+      // Removes text content from the DOM elements
+      $("#first-number, #operator, #second-number, #result").empty();
+    };
 
+    // Function for when a number button is pressed
+    $(".number").on("click", function() {
 
+      // If there has been a calculation, prevent the button from being pressed.
+      if(isCalculated) {
+        return false;
+      }
 
-  $("#first-number, #second-number, #operator, #result").empty();
-}
+      // If the operator has been chosen, the second number will be grabbed.
+      if (operatorChosen) {
+        // The second number is assigned the value of the the button pressed and displayed on the screen
+        secondNumber = $(this).val();
+        $("#second-number").text(secondNumber);
+      }
+      // Otherwise, the first number will be grabbed.
+      else {
+        firstNumber = $(this).val();
+        $("#first-number").text(firstNumber);
+      }
 
-$(".number").on("click", function() {
+    });
 
-// Check if we've already run a calculation, if so we'll just....
-if (isCalculated === true) {
-  return false;
-}
+    // Function for when an operator is pressed
+    $(".operator").on("click", function() {
 
-if (isOperatorChosen === true) {
-  secondNumber += $(this).val();
-  $("#second-number").text(secondNumber);
-}
-else {
-  firstNumber += $(this).val();
-  $("#first-number").text(firstNumber);
-}
+      // If the firstNumber hasn't been selected and there has been a calculation, prevent the button from being pressed.
+      if(!firstNumber || isCalculated) {
+        return false;
+      }
 
-});
+      // Change operatorChosen to true so second number can now be selected.
+      operatorChosen = true;
 
-$(".operator").on("click", function() {
-  isOperatorChose = true;
-});
+      // Assign the value of the operator button to variable and display on screen
+      operator = $(this).val();
+      $("#operator").text($(this).text());
+    });
 
-$(".equal")on("click", function() {
-isCalculate = true;
-});
+    // Function to calculate the result
+    $(".equal").on("click", function() {
 
-$(".clear")on("click", function() {
-isCalculated = false;
-});
+      // If we have already pressed the equal button, don't run.
+      if (isCalculated) {
+        return false;
+      }
 
+      // When button is pressed, the calculation has been made.
+      isCalculated = true;
 
-}
+      // Convert our numbers from strings into integers
+      firstNumber = parseInt(firstNumber);
+      secondNumber = parseInt(secondNumber);
+
+      // Depending on which operator was chose, perform that calculation
+      if(operator === "plus") {
+        result = firstNumber + secondNumber;
+      } else if (operator === "minus") {
+        result = firstNumber - secondNumber;
+      } else if (operator === "times") {
+        result = firstNumber * secondNumber;
+      } else if (operator === "divide") {
+        result = firstNumber / secondNumber;
+      } else if (operator === "power") {
+        result = Math.pow(firstNumber, secondNumber);
+      }
+
+      // Display the result
+      $("#result").text(result);
+
+    });
+
+    // Create a function to clear the calculator
+    $(".clear").on("click", function() {
+
+      initializeCalculator();
+
+    });
+
+    // initializeCalculator function is called to reset the calculator on page load
+    initializeCalculator();
+
+  });
 
 
 </script>
