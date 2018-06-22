@@ -77,7 +77,53 @@ $(document).ready(function() {
 // Your code here...
 
 
+// Use a function to initialize our calculator
+//This way when the user hits clear, we can guarantee a reset of the app.
+function intializeCalculator () {
+  firstNumber = "";
+  secondNumber = "";
+  operator = "";
+  isOperatorChosen = false;
+  isCalculated = false;
+
+
+
+  $("#first-number, #second-number, #operator, #result").empty();
+}
+
+$(".number").on("click", function() {
+
+// Check if we've already run a calculation, if so we'll just....
+if (isCalculated === true) {
+  return false;
+}
+
+if (isOperatorChosen === true) {
+  secondNumber += $(this).val();
+  $("#second-number").text(secondNumber);
+}
+else {
+  firstNumber += $(this).val();
+  $("#first-number").text(firstNumber);
+}
+
 });
+
+$(".operator").on("click", function() {
+  isOperatorChose = true;
+});
+
+$(".equal")on("click", function() {
+isCalculate = true;
+});
+
+$(".clear")on("click", function() {
+isCalculated = false;
+});
+
+
+}
+
 
 </script>
 
